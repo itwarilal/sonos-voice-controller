@@ -1,0 +1,14 @@
+{
+  "name": "voice-controller",
+  "version": "1.0.0",
+  "description": "Voice enabled sonos controller",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sachin Lad, Murty Srirangam",
+  "license": "ISC",
+ "dependencies": {
+    "node-wit": "2.0.0"
+  }
+}
