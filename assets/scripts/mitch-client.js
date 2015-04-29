@@ -15,7 +15,8 @@ GET http://authz.dev.ws.sonos.com:8080/v0/subject/SUBJECT_ID/object/HOUSEHOLD/ro
 var authzBaseUrl = 'http://authz.dev.ws.sonos.com:8080';
 var museEndpoint = 'ws://muse-frontend.dev.ws.sonos.com:8080/muse-server/v0/websocket';
 //var museEndpoint = 'ws://localhost:8080/muse-server/v0/websocket';
-var tokenEndpoint = 'https://mitch.dev.ws.sonos.com/auth/oauth/v2/token';
+var tokenEndpoint = 'https://mitch.ws.sonos.com/auth/oauth/v2/token';
+//var tokenEndpoint = 'https://api-dev1.sonos.com/auth/oauth/v2/token';
 var clientCredentials = 'NjAyMjNhYmItMzYwMy00NzQxLWJlNTktZjgyMjMxNWJkODMzOjlhYmFkY2MzLTJiOTUtNDkyNy1hNjM0LTE0M2ZiZjg3NThmOA==';
 var client;
 var activeAccessToken;
