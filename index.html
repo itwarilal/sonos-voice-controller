@@ -1,107 +1,42 @@
-<html>
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en"><![endif]-->
+<!--[if gt IE 9]><!-->
+  <html class="no-js" lang="en">
+<!--<![endif]-->
   <head>
-    <link rel="stylesheet" href="microphone/microphone.min.css">
-    <script type='text/javascript' src='mitch-client.js'></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonos Suit</title>
+    <!--[if IE 9]><link rel="stylesheet" href="//static.sonos.com/v2/live/styles/min/ie/suit.css"><![endif]-->
+    <!--[if gt IE 9]><!--><link rel="stylesheet" href="//static.sonos.com/v2/live/styles/min/suit.css"><!--<![endif]-->
+    <link rel="stylesheet" href="//fast.fonts.net/cssapi/f0598f02-6b8c-4ebc-8e0b-da61573232cf.css">
+    <link rel="stylesheet" href="assets/styles/microphone.css">
   </head>
-  <body style="text-align: center;">
-    <center><div id="microphone"></div></center>
-    <pre id="result"></pre>
-    <div id="info"></div>
-    <div id="error"></div>
-    <script src="microphone/microphone.min.js"></script>
-
-    <script>
-      var token;
-      var activeGroupId;
-
-      function onConnectCB(groupId) {
-        activeGroupId = groupId;
-        subscribe(activeGroupId, "groupvolume:1");
-      }
-
-      function onGetHouseholdsCB(householdIds) {
-        if (householdIds.length == 1) {
-          onHouseholdSelection(householdIds);
-        }
-      }
-
-      function onHouseholdSelection(householdIds) {
-        setActiveHouseholdId(householdIds[0]);
-      }
-
-      var mic = new Wit.Microphone(document.getElementById("microphone"));
-
-      login('deepesh.tated@sonos.com','Sonos123');
-
-      var info = function (msg) {
-        document.getElementById("info").innerHTML = msg;
-      };
-      var error = function (msg) {
-        document.getElementById("error").innerHTML = msg;
-      };
-      mic.onready = function () {
-        info("Microphone is ready to record");
-      };
-      mic.onaudiostart = function () {
-        info("Recording started");
-        error("");
-      };
-      mic.onaudioend = function () {
-        info("Recording stopped, processing started");
-      };
-      mic.onresult = function (intent, entities) {
-        var r = kv("intent", intent);
-
-        for (var k in entities) {
-          var e = entities[k];
-
-          if (!(e instanceof Array)) {
-            r += kv(k, e.value);
-          } else {
-            for (var i = 0; i < e.length; i++) {
-              r += kv(k, e[i].value);
-            }
-          }
-        }
-        document.getElementById("result").innerHTML = r;
-
-        switch(intent){
-          case "play":
-                play(activeGroupId);
-                break;
-          case "pause":
-                pause(activeGroupId);
-                break;
-          case "next":
-                next(activeGroupId);
-                break;
-          case "previous":
-                previous(activeGroupId);
-                break;
-          default:
-                break;
-        }
-      };
-      mic.onerror = function (err) {
-        error("Error: " + err);
-      };
-      mic.onconnecting = function () {
-        info("Microphone is connecting");
-      };
-      mic.ondisconnected = function () {
-        info("Microphone is not connected");
-      };
-
-      mic.connect("4A3RJPLJXRAJ4HDSR7HMFZSQW3GYULKT");
-      // mic.start();
-      // mic.stop();
-
-      function kv (k, v) {
-        if (toString.call(v) !== "[object String]") {
-          v = JSON.stringify(v);
-        }
-        return k + "=" + v + "\n";
-      }
-    </script>
+  <body class="antialiased" data-init>
+    <div class="main section collapse">
+      <div class="gradient gradient--seafoam reverse move">
+        <div class="contain-to-grid" data-move>
+          <nav data-topbar data-options="is_hover: false; back_text: <span class='icon-left-dir'></span> Back; scrolltop: false;" class="top-bar sonos-bar">
+            <ul class="title-area">
+              <li class="name">
+                <h1><a>Sonos</a></h1>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="row">
+          <div class="columns small-8 small-centered text-center">
+            <div id="microphone"></div>
+            <pre id="result"></pre>
+            <p id="info" class="white"></p>
+            <div id="error"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="//static.sonos.com/v2/live/scripts/min/suit.js"></script>
+    <script src="assets/scripts/microphone.min.js"></script>
+    <script src="assets/scripts/mitch-client.js"></script>
+    <script src="assets/scripts/app.js"></script>
   </body>
-  </html>
+</html>
