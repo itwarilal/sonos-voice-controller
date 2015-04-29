@@ -76,17 +76,32 @@ mic.onresult = function(intent, entities) {
 			break;
 		case "volumeup":
 			var add = entities["number"].value;
-			if (typeof add == defined) {
+			if (typeof add == 'undefined') {
 				add = 1;
 			}
-			setVolume(activeGroupId, currentVolume + entities["number"].value);
+			setVolume(activeGroupId, currentVolume + add);
 			break;
 		case "volumedown":
 			var sub = entities["number"].value;
-			if (typeof sub == defined) {
+			if (typeof sub == 'undefined') {
 				sub = 1;
 			}
-			setVolume(activeGroupId, currentVolume - entities["number"].value);
+			setVolume(activeGroupId, currentVolume - sub);
+			break;
+		case "mood":
+			var mood = entities["mood"].value;
+			if(typeof mood != 'undefined'){
+				switch (mood) {
+					case "party":
+						setVolume(activeGroupId, 50);
+						break;
+					case "sleep":
+						setVolume(activeGroupId, 15);
+						break;
+					default:
+						break;
+				}
+			}
 			break;
 		default:
 			break;
