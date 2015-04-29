@@ -1,5 +1,6 @@
 var token;
 var activeGroupId;
+var currentVolume;;
 
 function onConnectCB(groupId) {
 	activeGroupId = groupId;
@@ -12,12 +13,19 @@ function onGetHouseholdsCB(householdIds) {
 	}
 }
 
+function onGetVolumeResponseCB(volume) {
+	console.log(volume);
+	currentVolume = volume;
+}
+
 function onHouseholdSelection(householdIds) {
 	setActiveHouseholdId(householdIds[0]);
 }
 
 var mic = new Wit.Microphone(document.getElementById("microphone"));
-  console.log(mic);
+
+console.log(mic);
+
 login('deepesh.tated@sonos.com', 'Sonos123');
 
 var info = function(msg) {
@@ -28,6 +36,7 @@ var error = function(msg) {
 };
 mic.onready = function() {
 	info("Microphone is ready to record");
+	getVolume(activeGroupId);
 };
 mic.onaudiostart = function() {
 	info("Recording started");
@@ -64,6 +73,20 @@ mic.onresult = function(intent, entities) {
 			break;
 		case "previous":
 			previous(activeGroupId);
+			break;
+		case "volumeup":
+			var add = entities["number"].value;
+			if (typeof add == defined) {
+				add = 1;
+			}
+			setVolume(activeGroupId, currentVolume + entities["number"].value);
+			break;
+		case "volumedown":
+			var sub = entities["number"].value;
+			if (typeof sub == defined) {
+				sub = 1;
+			}
+			setVolume(activeGroupId, currentVolume - entities["number"].value);
 			break;
 		default:
 			break;
