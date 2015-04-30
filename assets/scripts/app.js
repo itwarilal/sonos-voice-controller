@@ -63,6 +63,7 @@ mic.onresult = function(intent, entities) {
 
 	switch (intent) {
 		case "play":
+			console.log('groupId = ' + activeGroupId);
 			play(activeGroupId);
 			break;
 		case "pause":
@@ -93,10 +94,16 @@ mic.onresult = function(intent, entities) {
 			if(typeof mood != 'undefined'){
 				switch (mood) {
 					case "party":
-						setVolume(activeGroupId, 50);
+						setVolume(activeGroupId, 80);
+						play(activeGroupId);
+						break;
+					case "party":
+						setVolume(activeGroupId, 80);
+						play(activeGroupId);
 						break;
 					case "sleep":
-						setVolume(activeGroupId, 15);
+						setVolume(activeGroupId, 25);
+						play(activeGroupId);
 						break;
 					default:
 						break;
